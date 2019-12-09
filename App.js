@@ -1,7 +1,7 @@
 import React from 'react'
 import Table from './Table'
 import Form from './Form'
-import './App.css'
+
 
 class App extends React.Component {
     state = { 
@@ -85,10 +85,10 @@ class App extends React.Component {
 
     //metodi jolla lisätään henkilö taulukkoon
     handleSubmit = lasku => {
-      if(lasku.Yritys != "" && lasku.maksupaivamaara != "" && lasku.laskunloppusumma != "" && lasku.laskunmaksaja != "")
+      if(lasku.Yritys != "" && lasku.maksupaivamaara >= 0 && lasku.laskunloppusumma >= 0 && lasku.laskunmaksaja != "")
         this.setState({ laskut: [...this.state.laskut,lasku] }) //ES6-spread operator
       else
-        alert("Täytä kentät ennen lisäämistä!");
+        alert("Tarkista syötettyjen arvojen oikeinkirjoitus");
     }
 
     render() {
