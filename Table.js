@@ -7,8 +7,8 @@ const TableHeader = () => {
         <thead>
             <tr>
                 <th>Yritys</th>
-                <th>Maksupvm</th>
-                <th>Laskun loppusumma</th>
+                <th>Maksupvm(muodossa 1.1)</th>
+                <th>Laskun loppusumma(muodossa 1.1)</th>
                 <th>Laskun maksaja</th>
             </tr>
         </thead>
