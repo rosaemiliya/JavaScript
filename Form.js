@@ -35,7 +35,7 @@ class Form extends React.Component {
         return (
             <form>
                 
-                Lisää: <label>Yritys</label>
+                <label>Yritys</label>
                 <input 
                     type='text'
                     name='yritys'
@@ -59,7 +59,7 @@ class Form extends React.Component {
                     name='laskunmaksaja'
                     value={laskunmaksaja}
                     onChange={this.handleChange} />
-                <input type ="button" value="Submit" onClick={this.submitForm} />
+                <input type ="button" value="Lisää" onClick={this.submitForm} />
             </form>
         );
     }
