@@ -48,32 +48,35 @@ class App extends React.Component {
     //metodi, jolla hyväksytään muokkaus ja korvataan laskutaulukosta vanhat arvot 
     hyvaksyMuutos = index => {
       const {laskut, laskuMuutos} = this.state
-
-      this.setState({   
-        
-        laskut:laskut.filter((lasku, i) => { 
-          if(i === index)
-          {
-            lasku.muokattava = false;
-            lasku.yritys = laskuMuutos.yritys
-            lasku.maksupaivamaara = laskuMuutos.maksupaivamaara
-            lasku.laskunloppusumma = laskuMuutos.laskunloppusumma
-            lasku.laskunmaksaja = laskuMuutos.laskunmaksaja
-          }
-          return i > -1
-        }),
-      })
+      if(laskuMuutos.Yritys !== "" && laskuMuutos.maksupaivamaara !== "" && laskuMuutos.laskunloppusumma >= 0 && laskuMuutos.laskunmaksaja !== "")
+      {
+        this.setState({   
+          
+          laskut:laskut.filter((lasku, i) => { 
+            if(i === index)
+            {
+              lasku.muokattava = false;
+              lasku.yritys = laskuMuutos.yritys
+              lasku.maksupaivamaara = laskuMuutos.maksupaivamaara
+              lasku.laskunloppusumma = laskuMuutos.laskunloppusumma
+              lasku.laskunmaksaja = laskuMuutos.laskunmaksaja
+            }
+            return i > -1
+          }),
+        })
+      }
+      else {
+        alert("Tarkista syötettyjen arvojen oikeinkirjoitus")
+      }
     }
     
     //Metodi, jolla peruutetaan muokkaus
     peruutaMuutos = index => {
       const { laskut, laskuMuutos} = this.state
-      console.log("peruuta" + laskuMuutos.yritys)
       laskuMuutos.yritys = "";
       laskuMuutos.maksupaivamaara = "";
       laskuMuutos.laskunloppusumma = "";
       laskuMuutos.laskunmaksaja = "";
-      console.log("peruuta" + laskuMuutos.yritys)
       this.setState({
         laskut:laskut.filter((lasku, i) => { 
           if(i === index)
@@ -86,7 +89,7 @@ class App extends React.Component {
     }
 
     //Metodi, joka kerää tiedot muutettavan laskun input-kentistä ja laittaa ne välivarastoon (laskuMuutos)
-    handleChange = event => {
+    kasitteleMuutos = event => {
       const {name, value } = event.target
       const {laskuMuutos} = this.state
       if(name === "yritys")
@@ -101,7 +104,7 @@ class App extends React.Component {
 
     //metodi jolla lisätään henkilö taulukkoon
     handleSubmit = lasku => {
-      if(lasku.Yritys !== "" && lasku.maksupaivamaara >= 0 && lasku.laskunloppusumma >= 0 && lasku.laskunmaksaja !== "")
+      if(lasku.Yritys !== "" && lasku.maksupaivamaara !== "" && lasku.laskunloppusumma >= 0 && lasku.laskunmaksaja !== "")
         this.setState({ laskut: [...this.state.laskut,lasku] })
       else
         alert("Tarkista syötettyjen arvojen oikeinkirjoitus");
@@ -112,7 +115,7 @@ class App extends React.Component {
       //Siirretään laskutaulukon tiedot (laskut) sekä metodien viitteet propseina taulukon luovalle komponentille
       return (
         <div className="container">
-            <Table laskuData={laskut} poistaLasku={this.poistaLasku} muokkaaLasku={this.muokkaaLasku} handleChange={this.handleChange} hyvaksyMuutos={this.hyvaksyMuutos} peruutaMuutos={this.peruutaMuutos}/>
+            <Table laskuData={laskut} poistaLasku={this.poistaLasku} muokkaaLasku={this.muokkaaLasku} kasitteleMuutos={this.kasitteleMuutos} hyvaksyMuutos={this.hyvaksyMuutos} peruutaMuutos={this.peruutaMuutos}/>
             <Form  handleSubmit={this.handleSubmit} />
         </div>
       )

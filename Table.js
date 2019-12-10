@@ -35,10 +35,10 @@ const TableBody = props => {
         else {
             return (
                 <tr key={index}>
-                    <td><input name="yritys" defaultValue={rivi.yritys} onChange={props.handleChange}></input></td>
-                    <td><input name="pvm" defaultValue={rivi.maksupaivamaara} onChange={props.handleChange}></input></td>
-                    <td><input name="summa" defaultValue={rivi.laskunloppusumma} onChange={props.handleChange}></input></td>
-                    <td><input name="maksaja" defaultValue={rivi.laskunmaksaja}onChange={props.handleChange}></input></td>
+                    <td><input name="yritys" defaultValue={rivi.yritys} onChange={props.kasitteleMuutos}></input></td>
+                    <td><input type="date" name="pvm" defaultValue={rivi.maksupaivamaara} onChange={props.kasitteleMuutos}></input></td>
+                    <td><input name="summa" defaultValue={rivi.laskunloppusumma} onChange={props.kasitteleMuutos}></input></td>
+                    <td><input name="maksaja" defaultValue={rivi.laskunmaksaja}onChange={props.kasitteleMuutos}></input></td>
                     <td>
                         <button onClick={() => props.hyvaksyMuutos(index)}>Hyväksy</button>
                         <button onClick={() => props.peruutaMuutos(index)}>Peruuta</button>
@@ -53,11 +53,11 @@ const TableBody = props => {
 //Metodi, jossa laskutaulukon luovat komponentit kutsutaan ja jossa propsit välitetään eteenpäin
 class Table extends React.Component {
     render(){ 
-        const { laskuData, poistaLasku, muokkaaLasku, handleChange, hyvaksyMuutos, peruutaMuutos} = this.props 
+        const { laskuData, poistaLasku, muokkaaLasku, kasitteleMuutos, hyvaksyMuutos, peruutaMuutos} = this.props 
         return (            
             <table>
             <TableHeader />
-            <TableBody laskuData={laskuData} poistaLasku={poistaLasku} muokkaaLasku={muokkaaLasku} handleChange={handleChange} hyvaksyMuutos = {hyvaksyMuutos} peruutaMuutos={peruutaMuutos}/> 
+            <TableBody laskuData={laskuData} poistaLasku={poistaLasku} muokkaaLasku={muokkaaLasku} kasitteleMuutos={kasitteleMuutos} hyvaksyMuutos = {hyvaksyMuutos} peruutaMuutos={peruutaMuutos}/> 
             </table>
         )
     }

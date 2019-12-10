@@ -43,7 +43,7 @@ class Form extends React.Component {
                     onChange={this.handleChange}/>
                 <label>maksupvm</label>
                 <input 
-                    type='text'
+                    type='date'
                     name='maksupaivamaara'
                     value={maksupaivamaara}
                     onChange={this.handleChange} />
