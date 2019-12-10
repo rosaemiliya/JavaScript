@@ -1,6 +1,7 @@
 import React from 'react'
 import Table from './Table'
 import Form from './Form'
+import Muunnin from './Muunnin'
 
 
 class App extends React.Component {
@@ -115,8 +116,9 @@ class App extends React.Component {
       //Siirretään laskutaulukon tiedot (laskut) sekä metodien viitteet propseina taulukon luovalle komponentille
       return (
         <div className="container">
-            <Table laskuData={laskut} poistaLasku={this.poistaLasku} muokkaaLasku={this.muokkaaLasku} kasitteleMuutos={this.kasitteleMuutos} hyvaksyMuutos={this.hyvaksyMuutos} peruutaMuutos={this.peruutaMuutos}/>
             <Form  handleSubmit={this.handleSubmit} />
+            <Table laskuData={laskut} poistaLasku={this.poistaLasku} muokkaaLasku={this.muokkaaLasku} kasitteleMuutos={this.kasitteleMuutos} hyvaksyMuutos={this.hyvaksyMuutos} peruutaMuutos={this.peruutaMuutos}/>
+            <Muunnin laskuData={laskut} />
         </div>
       )
     }
