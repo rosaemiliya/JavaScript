@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-//Simple Component.
+//Metodi, jossa luodaan laskutaulukon otsikkorivi ja palautettaan se
 const TableHeader = () => { 
     return(
         <thead>
@@ -15,12 +15,10 @@ const TableHeader = () => {
     )
 }
 
-//Simple component.
+//Metodi, jossa luodaan laskutaulukon sisältörivit ja palautetaan ne
 const TableBody = props => {
     const rivit = props.laskuData.map((rivi,index) => {
-        // 7. Luodaan joka riville painike, jolla kutsutaan propsina välitettyä funktiota removeCharater()
-        // Parametrinä sille annetaan indeksi, jotta tiedetään mikä rivi on kyseessä.
-        if(rivi.muokattava == false) {
+        if(rivi.muokattava === false) {
             return (
                 <tr key={index}>
                     <td>{rivi.yritys}</td>
@@ -52,15 +50,10 @@ const TableBody = props => {
     return <tbody>{rivit}</tbody>
 }
 
-//Custom component
+//Metodi, jossa laskutaulukon luovat komponentit kutsutaan ja jossa propsit välitetään eteenpäin
 class Table extends React.Component {
-
-
-
     render(){ 
-        const { laskuData, poistaLasku, muokkaaLasku, handleChange, hyvaksyMuutos, peruutaMuutos} = this.props // 5. Otetaan propsit talteen
-
-        // 6. välitetään propsit eteenpäin TableBody-komponentille (henkilötaulukko ja henkilön poistometodi)
+        const { laskuData, poistaLasku, muokkaaLasku, handleChange, hyvaksyMuutos, peruutaMuutos} = this.props 
         return (            
             <table>
             <TableHeader />

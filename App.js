@@ -9,7 +9,7 @@ class App extends React.Component {
       laskuMuutos: {yritys:"", maksupaivamaara:"", laskunloppusumma:"", laskunmaksaja:""}
     }
 
-    //metodi, jolla poistetaan henkilö taulukosta
+    //metodi, jolla poistetaan henkilö taulukosta perustuen indeksiin
     poistaLasku = index => { 
       const { laskut } = this.state 
 
@@ -21,30 +21,38 @@ class App extends React.Component {
       })
     }
 
+    //metodi, jolla merkataan lasku muokattavaksi perustuen indeksiin
     muokkaaLasku = index => {
-      const { laskut } = this.state 
+      const { laskut, laskuMuutos } = this.state 
 
       this.setState({   
         
         laskut:laskut.filter((lasku, i) => { 
-          if(i == index)
+          if(i === index)
           {
             lasku.muokattava = true;
-            //console.log("muokattava")
+            laskuMuutos.yritys = lasku.yritys;
+            laskuMuutos.maksupaivamaara = lasku.maksupaivamaara;
+            laskuMuutos.laskunloppusumma = lasku.laskunloppusumma;
+            laskuMuutos.laskunmaksaja = lasku.laskunmaksaja;
           }
-          //console.log(lasku.muokattava)
+          else if(i !== index && lasku.muokattava === true)
+          {
+            lasku.muokattava = false;
+          }
           return i > -1
         }),
       })
     }
 
+    //metodi, jolla hyväksytään muokkaus ja korvataan laskutaulukosta vanhat arvot 
     hyvaksyMuutos = index => {
       const {laskut, laskuMuutos} = this.state
 
       this.setState({   
         
         laskut:laskut.filter((lasku, i) => { 
-          if(i == index)
+          if(i === index)
           {
             lasku.muokattava = false;
             lasku.yritys = laskuMuutos.yritys
@@ -57,11 +65,18 @@ class App extends React.Component {
       })
     }
     
+    //Metodi, jolla peruutetaan muokkaus
     peruutaMuutos = index => {
-      const { laskut } = this.state
+      const { laskut, laskuMuutos} = this.state
+      console.log("peruuta" + laskuMuutos.yritys)
+      laskuMuutos.yritys = "";
+      laskuMuutos.maksupaivamaara = "";
+      laskuMuutos.laskunloppusumma = "";
+      laskuMuutos.laskunmaksaja = "";
+      console.log("peruuta" + laskuMuutos.yritys)
       this.setState({
         laskut:laskut.filter((lasku, i) => { 
-          if(i == index)
+          if(i === index)
           {
             lasku.muokattava = false;
           }
@@ -69,31 +84,32 @@ class App extends React.Component {
         })
       })
     }
-  
+
+    //Metodi, joka kerää tiedot muutettavan laskun input-kentistä ja laittaa ne välivarastoon (laskuMuutos)
     handleChange = event => {
       const {name, value } = event.target
       const {laskuMuutos} = this.state
-      if(name == "yritys")
+      if(name === "yritys")
         laskuMuutos.yritys = value
-      if(name == "pvm")
+      if(name === "pvm")
         laskuMuutos.maksupaivamaara = value
-      if(name == "summa")
+      if(name === "summa")
         laskuMuutos.laskunloppusumma = value
-      if(name == "maksaja")
+      if(name === "maksaja")
         laskuMuutos.laskunmaksaja = value
     }
 
     //metodi jolla lisätään henkilö taulukkoon
     handleSubmit = lasku => {
-      if(lasku.Yritys != "" && lasku.maksupaivamaara >= 0 && lasku.laskunloppusumma >= 0 && lasku.laskunmaksaja != "")
-        this.setState({ laskut: [...this.state.laskut,lasku] }) //ES6-spread operator
+      if(lasku.Yritys !== "" && lasku.maksupaivamaara >= 0 && lasku.laskunloppusumma >= 0 && lasku.laskunmaksaja !== "")
+        this.setState({ laskut: [...this.state.laskut,lasku] })
       else
         alert("Tarkista syötettyjen arvojen oikeinkirjoitus");
     }
 
     render() {
-      const {laskut} = this.state 
-      //siirretään handleSubmit-metodi propsina Form-komponentille
+      const {laskut} = this.state;
+      //Siirretään laskutaulukon tiedot (laskut) sekä metodien viitteet propseina taulukon luovalle komponentille
       return (
         <div className="container">
             <Table laskuData={laskut} poistaLasku={this.poistaLasku} muokkaaLasku={this.muokkaaLasku} handleChange={this.handleChange} hyvaksyMuutos={this.hyvaksyMuutos} peruutaMuutos={this.peruutaMuutos}/>

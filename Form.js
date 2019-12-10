@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css'
 
 class Form extends React.Component {
-    constructor(props) {    //konstruktoria käytetään tässä jotta saadaan this-sana käyttöön ja tuotua propsit parentilta
+    constructor(props) { 
         
-        super(props)    //tätä super()-metodia pitää käyttää, jos halutaan päästä propseihin käsiksi ja käytettyä this-sanaa konstruktorissa
-
-        this.initialState = {   //initialisoidaan state-olio tyhjillä arvoilla
+        super(props)
+        //alustetaan tyhjät oletusarvot
+        this.initialState = {   
             yritys:'',
             maksupaivamaara:'',
             laskunloppusumma:'',
@@ -20,8 +20,7 @@ class Form extends React.Component {
     //Metodi jota kutsutaan aina kun muutoksia on tehty input-laatikoihin
     handleChange = event => {
         const {name, value } = event.target
-        //console.log(name,value);
-        this.setState({     //talletetaan nimi ja arvo state-olioon
+        this.setState({     
             [name]: value,
         })
     }
@@ -32,9 +31,7 @@ class Form extends React.Component {
     }
     
     render(){
-        const { yritys, maksupaivamaara, laskunloppusumma, laskunmaksaja, piilossa } = this.state;
-
-        // henkilöiden lisäämiseen tehty lomake, jolla 2 tekstikenttää ja submit painike
+        const { yritys, maksupaivamaara, laskunloppusumma, laskunmaksaja } = this.state;
         return (
             <form>
                 
