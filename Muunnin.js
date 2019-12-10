@@ -1,35 +1,36 @@
 import React from 'react'
 
-const MuunninHeader = () => { 
-    return(
+const MuunninHeader = () => {  // otsikko palkki
+    return (
         <thead>
             <tr>
                 <th>Maksaja</th>
-                <th>Summma</th>
+                <th>Summa</th>
 
             </tr>
         </thead>
     )
 }
 
-const MuunninBody = props => {
+const MuunninBody = props => { // listan otsikon body missä näkyy jutut
     let summa = 0;
     let summa2 = 0;
     const nimet = [];
     props.laskuData.map((rivi, index) => {
-        if (!nimet.includes(rivi.laskunmaksaja)) {
-            nimet.push(rivi.laskunmaksaja);
+        if (!nimet.includes(rivi.laskunmaksaja)) { // jos ei löydy niin lisää arreyhin
+            nimet.push(rivi.laskunmaksaja); // arrayn eka nimi
 
         }
-        summa = summa + parseInt(rivi.laskunloppusumma, 10);
-        if (nimet[0].includes(rivi.laskunmaksaja)) {
-            summa2 = summa2 + parseInt(rivi.laskunloppusumma, 10);
+        summa = summa + parseInt(rivi.laskunloppusumma, 10);    // parseInt muuttaa arvon numeroksi
+
+
+        if (nimet[0].includes(rivi.laskunmaksaja)) { // arreyn toka nimi
+
+
+            summa2 = summa2 + parseInt(rivi.laskunloppusumma, 10); // parseInt muuttaa arvon numeroksi
         }
-
-
     })
-
-    if (nimet.length === 1) {
+    if (nimet.length === 1) { // Yksi nimi arraystä
         return (
             <tbody>
                 <tr>
@@ -41,16 +42,15 @@ const MuunninBody = props => {
                     </td>
                 </tr>
             </tbody>
-        )
+        ) 
     }
-    else if (nimet.length === 2) {
+    
+    else if (nimet.length === 2) { // kummatkin nimet arraystä
         let summa3 = summa - summa2;
         return (
             <tbody>
                 <tr>
                     <th>
-
-                        {nimet.lenght}
 
                         {nimet[0]}
                     </th>
@@ -68,7 +68,7 @@ const MuunninBody = props => {
                 </tr>
                 <tr>
                     <th>
-                        {nimet[0]} Summan sekä  {nimet[1]} Summan erotus =
+                        {nimet[0]}:n yhteenlasketun summan sekä {nimet[1]}:n yhteenlasketun summan erotuksen tulos =
                     </th>
                     <td>
                         {summa2 - summa3}
@@ -77,7 +77,7 @@ const MuunninBody = props => {
             </tbody>
         )
     }
-    else {
+    else { // Ei mitään nimiä arrayssä
 
         return (
             <tbody>
@@ -87,7 +87,7 @@ const MuunninBody = props => {
     }
 }
 
-class Muunnin extends React.Component {
+class Muunnin extends React.Component { //Metodi, jossa laskutaulukon luovat komponentit kutsutaan ja jossa propsit välitetään eteenpäin
     state = {
         laskut: [],
         laskuMuutos: { yritys: "", maksupaivamaara: "", laskunloppusumma: "", laskunmaksaja: "" }
@@ -103,8 +103,5 @@ class Muunnin extends React.Component {
         )
     }
 }
-
-
-
 
 export default Muunnin
