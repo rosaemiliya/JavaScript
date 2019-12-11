@@ -24,10 +24,23 @@ class Form extends React.Component {
             [name]: value,
         })
     }
+
     //Kutsutaan kun painetaan submit painiketta
     submitForm = () => {
-        this.props.handleSubmit(this.state)
-        this.setState(this.initialState)
+        const { yritys, maksupaivamaara, laskunloppusumma, laskunmaksaja } = this.state;
+        //Tarkistuksia
+        if(yritys === "")
+            alert("Yritys ei kelpaa!");
+        else if(maksupaivamaara === "")
+            alert("Maksupvm ei kelpaa!");
+        else if(Number(laskunloppusumma) <= 0)
+            alert("Laskunloppusumma pitää olla suurempi kuin 0")    
+        else if(laskunmaksaja === "")
+            alert("Maksaja ei kelpaa!")
+        else{    
+            this.props.handleSubmit(this.state) //Kutsutaan App.js olevaa handleSubmit metodia
+            this.setState(this.initialState)    //Laitetaan tämän formin tilamuuttuja alkutilaan
+        }
     }
     
     render(){

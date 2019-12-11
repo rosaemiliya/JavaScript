@@ -105,10 +105,7 @@ class App extends React.Component {
 
     //metodi jolla lisätään henkilö taulukkoon
     handleSubmit = lasku => {
-      if(lasku.Yritys !== "" && lasku.maksupaivamaara !== "" && lasku.laskunloppusumma >= 0 && lasku.laskunmaksaja !== "")
         this.setState({ laskut: [...this.state.laskut,lasku] })
-      else
-        alert("Tarkista syötettyjen arvojen oikeinkirjoitus");
     }
 
     render() {
