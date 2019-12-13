@@ -33,8 +33,8 @@ class Form extends React.Component {
             alert("Yritys ei kelpaa!");
         else if(maksupaivamaara === "")
             alert("Maksupvm ei kelpaa!");
-        else if(Number(laskunloppusumma) <= 0)
-            alert("Laskunloppusumma pitää olla suurempi kuin 0")    
+        else if(isNaN(laskunloppusumma) === true || laskunloppusumma === "")
+            alert("Laskunloppusumma ei kelpaa!")    
         else if(laskunmaksaja === "")
             alert("Maksaja ei kelpaa!")
         else{    

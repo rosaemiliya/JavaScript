@@ -49,9 +49,16 @@ class App extends React.Component {
     //metodi, jolla hyväksytään muokkaus ja korvataan laskutaulukosta vanhat arvot 
     hyvaksyMuutos = index => {
       const {laskut, laskuMuutos} = this.state
-      if(laskuMuutos.Yritys !== "" && laskuMuutos.maksupaivamaara !== "" && laskuMuutos.laskunloppusumma >= 0 && laskuMuutos.laskunmaksaja !== "")
-      {
-        this.setState({   
+      if(laskuMuutos.yritys === "")
+            alert("Yritys ei kelpaa!");
+        else if(laskuMuutos.maksupaivamaara === "")
+            alert("Maksupvm ei kelpaa!");
+        else if(isNaN(laskuMuutos.laskunloppusumma) === true || laskuMuutos.laskunloppusumma === "")
+            alert("Laskunloppusumma ei kelpaa!")    
+        else if(laskuMuutos.laskunmaksaja === "")
+            alert("Maksaja ei kelpaa!")
+        else{
+            this.setState({   
           
           laskut:laskut.filter((lasku, i) => { 
             if(i === index)
@@ -65,9 +72,6 @@ class App extends React.Component {
             return i > -1
           }),
         })
-      }
-      else {
-        alert("Tarkista syötettyjen arvojen oikeinkirjoitus")
       }
     }
     
