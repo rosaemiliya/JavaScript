@@ -17,7 +17,9 @@ const TableHeader = () => {
 
 //Metodi, jossa luodaan laskutaulukon sisältörivit ja palautetaan ne
 const TableBody = props => {
+    let laskujenmaara = 0;
     const rivit = props.laskuData.map((rivi,index) => {
+        laskujenmaara = laskujenmaara + 1;      //Ynnää laskujen määrään rivien määrän
         if(rivi.muokattava === false) {
             return (
                 <tr key={index}>
@@ -47,7 +49,8 @@ const TableBody = props => {
             )
         }
     })
-    return <tbody>{rivit}</tbody>
+    return (<div><tbody>{rivit}</tbody>
+        <div>Laskujen lukumäärä: {laskujenmaara}</div></div>)   //Lisää laskujen yhteensä lukumäärän
 }
 
 //Metodi, jossa laskutaulukon luovat komponentit kutsutaan ja jossa propsit välitetään eteenpäin
